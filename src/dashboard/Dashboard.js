@@ -6,7 +6,6 @@ import * as redux from '../redux/renderWithRedux';
 
 class Dashboard extends React.Component {
 	render() {
-		console.log(this.props);
 		const { closed, locked } = this.props;
 
 		return (

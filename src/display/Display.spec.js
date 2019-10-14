@@ -19,7 +19,6 @@ describe('Display', () => {
 		expect((open || closed) && (locked || unlocked)).toBeInTheDocument();
 	});
 	it('displays "Open" when gate is open', () => {
-		//wrapper = rtl.render(<Display open={true} />)
 		expect(wrapper.queryByText(/open/i)).toBeInTheDocument();
 	});
 	it('displays "Closed" when gate is closed', () => {
