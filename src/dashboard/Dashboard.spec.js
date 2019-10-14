@@ -3,12 +3,13 @@ import React from 'react';
 import * as rtl from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Dashboard from './Dashboard';
+import * as redux from '../redux/renderWithRedux';
 
 let wrapper;
 
 afterEach(rtl.cleanup);
 beforeEach(() => {
-	wrapper = rtl.render(<Dashboard />);
+	wrapper = redux.renderWithRedux(<Dashboard />);
 });
 
 describe('Dashboard', () => {
@@ -23,6 +24,7 @@ describe('Dashboard', () => {
 		let toggleClosedBtn = wrapper.getByTestId('toggleClosed');
 		rtl.fireEvent.click(toggleClosedBtn);
 		rtl.fireEvent.click(toggleLockedBtn);
+		wrapper.debug();
 		expect(toggleLockedBtn).toBeEnabled();
 		expect(toggleClosedBtn).toBeDisabled();
 	});
