@@ -11,15 +11,6 @@ beforeEach(() => {
 });
 
 describe('Display', () => {
-	/*it('defaults gate to be open and unlocked', () => {
-		expect(wrapper.queryByText(/open/i)).toBeInTheDocument();
-		expect(wrapper.queryByText(/unlocked/i)).toBeInTheDocument();
-	});
-	it('cannot be close or opened if it is locked', () => {
-		wrapper = rtl.render(<Display locked={true} />)
-		expect(wrapper.queryByText(/open/i)).toBeInTheDocument();
-		expect(wrapper.queryByText(/unlocked/i)).toBeInTheDocument();
-	});*/
 	it('displays if gate is open/closed and if it is locked/unlocked', () => {
 		let open = wrapper.queryByText(/open/i);
 		let closed = wrapper.queryByText(/closed/i);
@@ -35,10 +26,6 @@ describe('Display', () => {
 		wrapper = rtl.render(<Display closed={true} />)
 		expect(wrapper.queryByText(/closed/i)).toBeInTheDocument();
 	});
-	it('displays "Closed" when closed prop is true', () => {
-		wrapper = rtl.render(<Display closed={true} />)
-		expect(wrapper.queryByText(/closed/i)).toBeInTheDocument();
-	});
 	it('displays "Unlocked" when gate is unlocked', () => {
 		expect(wrapper.queryByText(/unlocked/i)).toBeInTheDocument();
 	});
@@ -47,5 +34,15 @@ describe('Display', () => {
 		wrapper = rtl.render(<Display locked={true} closed={true} />)
 		expect(wrapper.queryByText(/unlocked/i)).not.toBeInTheDocument();
 		expect(wrapper.queryByText(/locked/i)).toBeInTheDocument();
+	});
+	it('uses the red-led class when locked or closed', () => {
+		rtl.cleanup();
+		wrapper = rtl.render(<Display locked={true} closed={true} />)
+		expect(wrapper.queryByText(/Locked/i)).toHaveClass('red-led');
+		expect(wrapper.queryByText(/Closed/i)).toHaveClass('red-led');
+	});
+	it('uses the green-led class when unlocked or open', () => {
+		expect(wrapper.queryByText(/Unlocked/i)).toHaveClass('green-led');
+		expect(wrapper.queryByText(/Open/i)).toHaveClass('green-led');
 	});
 });
