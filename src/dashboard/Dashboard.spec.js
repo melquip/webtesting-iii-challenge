@@ -12,7 +12,26 @@ beforeEach(() => {
 });
 
 describe('Dashboard', () => {
-	it('works', () => {
-
+	it('shows the controls and display', () => {
+		expect(wrapper.queryByText(/Close Gate/i)).toBeInTheDocument();
+		expect(wrapper.queryByText(/Open/i)).toBeInTheDocument();
+		expect(wrapper.queryByText(/Lock Gate/i)).toBeInTheDocument();
+		expect(wrapper.queryByText(/Unlocked/i)).toBeInTheDocument();
+	});
+	it('cannot be closed or opened if it is locked', () => {
+		let toggleLockedBtn = wrapper.getByTestId('toggleLocked');
+		let toggleClosedBtn = wrapper.getByTestId('toggleClosed');
+		rtl.fireEvent.click(toggleClosedBtn);
+		rtl.fireEvent.click(toggleLockedBtn);
+		expect(toggleLockedBtn).toBeEnabled();
+		expect(toggleClosedBtn).toBeDisabled();
+	});
+	it('buttons change text on click', () => {
+		let toggleLockedBtn = wrapper.getByTestId('toggleLocked');
+		let toggleClosedBtn = wrapper.getByTestId('toggleClosed');
+		rtl.fireEvent.click(toggleClosedBtn);
+		expect(toggleClosedBtn).toHaveTextContent(/open gate/i);
+		rtl.fireEvent.click(toggleLockedBtn);
+		expect(toggleLockedBtn).toHaveTextContent(/unlock gate/i);
 	});
 });
